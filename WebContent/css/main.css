@@ -1,0 +1,26 @@
+html {
+	height: 50%;
+	width: 100%;
+}
+
+.header {
+	background-image: url("../images/header.jpg");
+	height: 40%;
+	width: 100%;
+	color: red;
+}
+
+#searchButton, #registerShop {
+	color: #fff;
+	text-shadow: -2px 2px #346392;
+	background-color: #ff9664;
+	background-image: linear-gradient(top, #6496c8, #346392);
+	box-shadow: inset 0 0 0 1px #27496d;
+	border: medium;
+	border-radius: 15px;
+	border-color: white;
+}
+
+#searchButton:HOVER, #registerShop:HOVER {
+	clo
+}
