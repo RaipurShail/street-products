@@ -29,6 +29,12 @@
 $(document).ready(function(){
 	$("#addProductBtn").click(function(){
 		$("#loading").show();
+		var tableStart = "<table class='viewTable' border='1'><tr>";
+		var tableEnd = "</table>";
+		var result="";
+		var errorMsg="";
+		var flag=false;
+		
 		$.ajax({
 			type: "GET",
 			url: "addProduct.do",
@@ -39,44 +45,51 @@ $(document).ready(function(){
 			success: function(response){
 				$("#loading").hide();
 				$("#resultDiv").html("");
-		        	  var table1 = "<table class='viewTable' border='1'><tr>";
-		        	  table1 = table1 + "<td>Product ID</td>";
-		        	  table1 = table1 + "<td>Product Name</td>";
-		        	  table1 = table1 + "<td>Product Code</td>";
-		        	  table1 = table1 + "<td>Price</td>";
-	                  table1 = table1 + "<td>Manufacturer</td>";
-	                  table1 = table1 + "<td>Available Stock</td>";
-	                  table1 = table1 + "<td>shop Id</td>";
-	                  table1 = table1 + "<td>User Name</td>";
-	                  table1 = table1 + "<td>Category Id</td>";
-	                  table1 = table1 + "<td>Created Date</td>";
-	                  table1 = table1 + "<td>CreatedBy</td>";
-	                  table1 = table1 + "<td>Modified Date</td>";
-	                  table1 = table1 + "<td>Modified By</td></tr>";
-		        	  var table2 = "</table>";
-		        	  var column="";
-		        	  $.each(response, function(key, value) {
-		                  column=column+'<tr><td>'+response[key].productId+'</td>';
-		                  column=column+'<td>'+response[key].productName+'</td>';
-		                  column=column+'<td>'+response[key].productCode+'</td>';
-		                  column=column+'<td>'+response[key].price+'</td>';
-		                  column=column+'<td>'+response[key].manufacturer+'</td>';
-		                  column=column+'<td>'+response[key].availableStock+'</td>';
-		                  column=column+'<td>'+response[key].shopId+'</td>';
-		                  column=column+'<td>'+response[key].userName+'</td>';
-		                  column=column+'<td>'+response[key].categoryId+'</td>';
-		                  column=column+'<td>'+response[key].createdDate+'</td>';
-		                  column=column+'<td>'+response[key].createdBy+'</td>';
-		                  column=column+'<td>'+response[key].modifiedDate+'</td>';
-		                  column=column+'<td>'+response[key].modifiedBy+'</td></tr>';
-		              });
-		        	  $('#productForm')[0].reset();
-		        	  $(table1+column+table2).appendTo('#resultDiv');
+				
+				tableStart = tableStart + "<td>Product ID</td>";
+				tableStart = tableStart + "<td>Product Name</td>";
+				tableStart = tableStart + "<td>Product Code</td>";
+				tableStart = tableStart + "<td>Price</td>";
+				tableStart = tableStart + "<td>Manufacturer</td>";
+				tableStart = tableStart + "<td>Available Stock</td>";
+				tableStart = tableStart + "<td>shop Id</td>";
+				tableStart = tableStart + "<td>User Name</td>";
+				tableStart = tableStart + "<td>Category Id</td>";
+				tableStart = tableStart + "<td>Created Date</td>";
+				tableStart = tableStart + "<td>CreatedBy</td>";
+				tableStart = tableStart + "<td>Modified Date</td>";
+				tableStart = tableStart + "<td>Modified By</td></tr>";
+				
+				for (i = 0; i < response.length; i++) {
+					jsonString = response[i];
+					result=result+'<tr>';
+					for(key in jsonString) {
+						if(key=="erroMessage"){
+							flag=true;
+							errorMsg=jsonString[key];
+						} else {
+							result=result+'<td>'+jsonString[key]+'</td>';
+						}
+					}
+					result=result+"</tr>";
+				}
+				
+				if(flag){
+					tableStart = "<table class='viewTable' border='1'><tr><td>Error</td></tr>";
+					result='<tr><td>'+errorMsg+'</td></tr>';
+				}
+				
+				$('#productForm')[0].reset();
+				$(tableStart+result+tableEnd).appendTo('#resultDiv');
 			},
 			error: function(response){
-				console.log("Fail....");
-				console.log(response);
-				$("#resultDiv").html(response);
+				$("#loading").hide();
+				$("#resultDiv").html("");
+				 $.each(response, function(key, value) {
+					result=result+'<tr><td>'+response[key].erroMessage+'</td></tr>';
+				});
+				$('#productForm')[0].reset();
+				$(tableStart+result+tableEnd).appendTo('#resultDiv');
 			},
 		});
 	});
@@ -107,6 +120,7 @@ function showProducts()
 	<div id="loading"></div>
 	<form:form name="productForm" id="productForm" modelAttribute="product">
 		<input name="productId" id="productId" type="hidden" value="${product.productId}">
+		<input name="erroMessage" id="erroMessage" type="hidden" value="${product.erroMessage}">
 		<div align="center">
 			<h1>Product Detail</h1>
 			<table border="1">
