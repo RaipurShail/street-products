@@ -53,7 +53,8 @@ public class ProductController {
 	public @ResponseBody String addProducts(@ModelAttribute("product") ProductMaster product, BindingResult result) {
 		String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 		String jsonInString=null;
-		System.out.println(product.getProductName());
+		ObjectMapper mapper = new ObjectMapper();
+		ProductFormBean productFormBean = new ProductFormBean();
 		if(!result.hasErrors() && null != product){
 			try {
 				product.setCreatedDate(timeStamp);
@@ -64,7 +65,6 @@ public class ProductController {
 				product.setUserName("shailmodi@street.com");
 				productMasterDao.addProducts(product); //Insertion to productmaster Table
 				
-				ObjectMapper mapper = new ObjectMapper();
 				ModelAndView model = new ModelAndView("addProductsView");
 				//product=new ProductMaster();
 				model.addObject("product", product);
@@ -72,17 +72,22 @@ public class ProductController {
 				model.addObject("productList", productList);
 			
 				jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productList);
-				System.out.println("JSON 1--------");
-				System.out.println(jsonInString);
 				/*jsonInString=mapper.writeValueAsString(product);
 				System.out.println("JSON 2--------");
 				System.out.println(jsonInString);*/
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
+				productFormBean.setErroMessage("Failure: Record is not Inserted");
 				e.printStackTrace();
 			}
 		} else {
-			jsonInString = "Unable to Insert....";
+			productFormBean.setErroMessage("Failure: Record is not Inserted");
+			try {
+				jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(java.util.Arrays.asList(productFormBean));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return jsonInString;
 	}
