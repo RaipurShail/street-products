@@ -33,6 +33,7 @@
 
 		<mapping class="com.business.pojo.ProductMaster" />
 		<mapping class="com.business.pojo.CategoryMaster" />
+		<mapping class="com.business.pojo.ShopMaster" />
 		
 	</session-factory>
 

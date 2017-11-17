@@ -14,6 +14,8 @@ public class ProductFormBean {
 	private Float price;
 	private String manufacturer;
 	private Integer availableStock;
+	private Long shopId;
+	private String userName;
 	private Long categoryId;
 	private String categoryName;
 	private String createdDate;
@@ -57,6 +59,18 @@ public class ProductFormBean {
 	}
 	public void setAvailableStock(Integer availableStock) {
 		this.availableStock = availableStock;
+	}
+	public Long getShopId() {
+		return shopId;
+	}
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public Long getCategoryId() {
 		return categoryId;

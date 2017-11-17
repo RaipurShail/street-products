@@ -11,5 +11,4 @@ public interface CategoryMasterDao {
 	public List<CategoryMaster> getCategories();
 	public CategoryMaster getCategory(Long categoryId);
 	public Map<Long, String>  getCategoryNames(ProductMaster product);
-	Map<Long, String> getCategoryNamesForms(ProductFormBean product);
 }

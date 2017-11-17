@@ -3,6 +3,7 @@ package com.business.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.business.form.ProductFormBean;
 import com.business.pojo.ProductMaster;
 
 public interface ProductMasterDao {
@@ -11,4 +12,5 @@ public interface ProductMasterDao {
 	public ProductMaster getProduct(Long productId);
 	public void deleteProduct(Long productId);
 	public void updateProducts(ProductMaster product);
+	Map<Long, String> getCategoryNamesForms(ProductFormBean product);
 }

@@ -15,12 +15,18 @@
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
-
-	<bean id="categoryMasterDao" class="com.business.dao.CategoryMasterDaoImpl">
+	
+	<bean id="shopMasterDao" class="com.business.dao.ShopMasterDaoImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
+
+	<!-- <bean id="categoryMasterDao" class="com.business.dao.CategoryMasterDaoImpl">
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

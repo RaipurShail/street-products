@@ -9,6 +9,10 @@
 <script src="js/util.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$(window).load(function() { 
+        $("#spinner").fadeOut("slow"); 
+    });
 
 	$("#areaSearch").click(function(){
 		if(validateEmail('abc.com')){
@@ -18,13 +22,31 @@ $(document).ready(function(){
 	});
 });
 </script>
+<style type="text/css">
+
+#loading
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 3em;
+	height: 3em;
+	transform: translate(-50%, -50%);
+	/*margin-top: -50px;
+	margin-left: -100px;*/
+	background: url(images/loadingIcon1.gif) no-repeat;
+	background-size: 100%;
+}
+</style>
 </head>
 <%@include file="/WEB-INF/jsp/common/header.jsp" %>
 <body>
+	<div id="loading">
+	</div>
 	<form action="">
-		<h1><a href="registerBusiness.do">Business</a></h1>
+		<h1><a href="productDescription.do">Products</a></h1>
 		<br/>
-		<h2><a href="userCRUD.do">Customer</a></h2>
+		<h2><a href="shopDescription.do">Shop Registration</a></h2>
 	</form>
 </body>
 </html>

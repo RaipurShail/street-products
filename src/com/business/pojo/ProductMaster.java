@@ -17,28 +17,13 @@ public class ProductMaster {
 	private Float price;
 	private String manufacturer;
 	private Integer availableStock;
+	private Long shopId;
+	private String userName;
 	private Long categoryId;
 	private String createdDate;
 	private String createdBy;
 	private String modifiedDate;
 	private String modifiedBy;
-
-	public ProductMaster(Long productId, String productName, String productCode, Float price, String manufacturer,
-			Integer availableStock, Long categoryId, String createdDate, String createdBy, String modifiedDate,
-			String modifiedBy) {
-		super();
-		this.productId = productId;
-		this.productName = productName;
-		this.productCode = productCode;
-		this.price = price;
-		this.manufacturer = manufacturer;
-		this.availableStock = availableStock;
-		this.categoryId = categoryId;
-		this.createdDate = createdDate;
-		this.createdBy = createdBy;
-		this.modifiedDate = modifiedDate;
-		this.modifiedBy = modifiedBy;
-	}
 
 	public ProductMaster() {
 		// TODO Auto-generated constructor stub
@@ -107,8 +92,26 @@ public class ProductMaster {
 
 	public void setAvailableStock(Integer availableStock) {
 		this.availableStock = availableStock;
+	}	
+	
+	@Column(name = "shop_id")
+	public Long getShopId() {
+		return shopId;
 	}
 
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
+	}
+
+	@Column(name = "user_name")
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	@Column(name = "category_id")
 	public Long getCategoryId() {
 		return categoryId;

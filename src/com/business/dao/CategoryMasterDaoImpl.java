@@ -32,7 +32,7 @@ public class CategoryMasterDaoImpl implements CategoryMasterDao{
 		Session session = sessionFactory.getCurrentSession();
 		List<CategoryMaster> category = null;
 		try {
-			session.beginTransaction();
+			session.getTransaction().begin();
 			category = (List<CategoryMaster>)session.createQuery("from CategoryMaster").list();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class CategoryMasterDaoImpl implements CategoryMasterDao{
 		
 		Session session = sessionFactory.getCurrentSession();
 		try{
-			transaction = session.beginTransaction();
+			session.getTransaction().begin();
 			if(null != product.getCategoryId() && product.getCategoryId() != 0){
 				categoryId = product.getCategoryId();
 				criteria = session.createCriteria(CategoryMaster.class)
@@ -64,6 +64,7 @@ public class CategoryMasterDaoImpl implements CategoryMasterDao{
 			} else {
 				criteria = session.createCriteria(CategoryMaster.class);
 			}
+			session.getTransaction().commit();
 			
 			categoryList = criteria.list();
 			
@@ -78,48 +79,7 @@ public class CategoryMasterDaoImpl implements CategoryMasterDao{
 			}
 		} catch(HibernateException e){
 			e.printStackTrace();
-			transaction.rollback();
-		}
-		return categoryMap;
-	}
-	
-	@Override
-	public Map<Long, String> getCategoryNamesForms(ProductFormBean product) {
-		// TODO Auto-generated method stub
-		Transaction transaction = null;
-		Criteria criteria = null;
-		
-		List<CategoryMaster> categoryList = null;
-		Map<Long, String> categoryMap = new HashMap<>();
-		
-		Long categoryId =  null;
-		String productName = null;
-		
-		Session session = sessionFactory.getCurrentSession();
-		try{
-			transaction = session.beginTransaction();
-			if(null != product.getCategoryId() && product.getCategoryId() != 0){
-				categoryId = product.getCategoryId();
-				criteria = session.createCriteria(CategoryMaster.class)
-						.add(Restrictions.eq("categoryId", categoryId));
-			} else {
-				criteria = session.createCriteria(CategoryMaster.class);
-			}
-			
-			categoryList = criteria.list();
-			
-			if(!categoryList.isEmpty()){
-				for (CategoryMaster master : categoryList) {
-					
-					categoryId = master.getCategoryId();
-					productName = master.getCategoryName();
-					
-					categoryMap.put(categoryId, productName);
-				}
-			}
-		} catch(HibernateException e){
-			e.printStackTrace();
-			transaction.rollback();
+			session.getTransaction().rollback();
 		}
 		return categoryMap;
 	}
