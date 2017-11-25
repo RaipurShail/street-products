@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.business.dao.ProductMasterDao;
 import com.business.form.ProductFormBean;
 import com.business.pojo.ProductMaster;
-import com.business.util.ProductOperation;
+import com.business.util.CommonOperation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +27,7 @@ public class ProductController {
 	@Autowired
 	private ProductMasterDao productMasterDao;
 	
-	ProductOperation productOperation = new ProductOperation();
+	CommonOperation commonOperation = new CommonOperation();
 	
 	/*@RequestMapping(value="/addProduct")
 	public ModelAndView addProducts(@ModelAttribute("product") ProductMaster product, BindingResult result) {
@@ -58,9 +58,9 @@ public class ProductController {
 		if(!result.hasErrors() && null != product){
 			try {
 				product.setCreatedDate(timeStamp);
-				product.setCreatedBy(productOperation.getHostName());
+				product.setCreatedBy(commonOperation.getHostName());
 				product.setModifiedDate(timeStamp);
-				product.setModifiedBy(productOperation.getHostName());
+				product.setModifiedBy(commonOperation.getHostName());
 				product.setShopId(1L);
 				product.setUserName("shailmodi@street.com");
 				productMasterDao.addProducts(product); //Insertion to productmaster Table
@@ -109,7 +109,7 @@ public class ProductController {
 	public ModelAndView updateProducts(@ModelAttribute("product") ProductMaster product) {
 		String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 		product.setModifiedDate(timeStamp);
-		product.setModifiedBy(productOperation.getHostName());
+		product.setModifiedBy(commonOperation.getHostName());
 		if(null != product ) 
 			productMasterDao.updateProducts(product);
 

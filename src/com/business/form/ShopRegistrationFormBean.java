@@ -22,6 +22,7 @@ public class ShopRegistrationFormBean {
 	private String registrationNumber;
 	private String primaryContactNumber;
 	private String contactNumber;
+	private String emailId;
 	private Map<String, String> ownership; /*RENTAL, SELF*/
 	private String tenantName;
 	private String tenantGender;
@@ -45,7 +46,7 @@ public class ShopRegistrationFormBean {
 	public ShopRegistrationFormBean(Long shopId, String shopName, String snNumber, String buildingName,
 			String streetName, String landmarkName, String localityName, String country, String state, String district,
 			String city, String pincode, String ownerName, String ownerGender, String registrationNumber,
-			String primaryContactNumber, String contactNumber, Map<String, String> ownership, String tenantName,
+			String primaryContactNumber, String contactNumber, String emailId, Map<String, String> ownership, String tenantName,
 			String tenantGender, String establishDate, Map<String, String> establishType, String userId,
 			Map<String, String> businessSector, String locationCoOrdinates, String workingHours, String workingDays,
 			String workingOffDays, String createdDate, String createdBy, String modifiedDate, String modifiedBy) {
@@ -67,6 +68,7 @@ public class ShopRegistrationFormBean {
 		this.registrationNumber = registrationNumber;
 		this.primaryContactNumber = primaryContactNumber;
 		this.contactNumber = contactNumber;
+		this.emailId = emailId;
 		this.ownership = ownership;
 		this.tenantName = tenantName;
 		this.tenantGender = tenantGender;
@@ -220,6 +222,14 @@ public class ShopRegistrationFormBean {
 		this.contactNumber = contactNumber;
 	}
 
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
 	public Map<String, String> getOwnership() {
 		return ownership;
 	}
@@ -255,17 +265,17 @@ public class ShopRegistrationFormBean {
 	public Map<String, String> getEstablishType() {
 		return establishType;
 	}
-	
+
+	public void setEstablishType(Map<String, String> establishType) {
+		this.establishType = establishType;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	
-	public void setEstablishType(Map<String, String> establishType) {
-		this.establishType = establishType;
 	}
 
 	public Map<String, String> getBusinessSector() {
@@ -343,5 +353,4 @@ public class ShopRegistrationFormBean {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 }
