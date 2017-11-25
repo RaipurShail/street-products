@@ -22,7 +22,7 @@ public class ShopMasterDaoImpl implements ShopMasterDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			session.beginTransaction();
+			session.getTransaction().begin();
 			session.save(shop);
 		} catch (HibernateException e) {
 			e.printStackTrace();

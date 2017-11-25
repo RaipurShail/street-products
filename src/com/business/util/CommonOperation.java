@@ -3,9 +3,9 @@ package com.business.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class ProductOperation {
+public class CommonOperation {
 
-	public ProductOperation() {
+	public CommonOperation() {
 		// TODO Auto-generated constructor stub
 	}
 	
