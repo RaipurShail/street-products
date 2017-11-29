@@ -9,6 +9,8 @@
 <title>Product Description</title>
 </head>
 <%@include file="/WEB-INF/jsp/common/scripts.jsp" %>
+<script src="js/jquery.dataTables.min.js"></script>
+<link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #loading
 {
@@ -46,7 +48,7 @@ $(document).ready(function(){
 				$("#loading").hide();
 				$("#resultDiv").html("");
 				
-				tableStart = tableStart + "<td>Product ID</td>";
+				/* tableStart = tableStart + "<td>Product ID</td>";
 				tableStart = tableStart + "<td>Product Name</td>";
 				tableStart = tableStart + "<td>Product Code</td>";
 				tableStart = tableStart + "<td>Price</td>";
@@ -80,20 +82,57 @@ $(document).ready(function(){
 				}
 				
 				$('#productForm')[0].reset();
-				$(tableStart+result+tableEnd).appendTo('#resultDiv');
+				$(tableStart+result+tableEnd).appendTo('#resultDiv'); */
+				showDataTable(response);
 			},
 			error: function(response){
 				$("#loading").hide();
 				$("#resultDiv").html("");
-				 $.each(response, function(key, value) {
+				/*  $.each(response, function(key, value) {
 					result=result+'<tr><td>'+response[key].erroMessage+'</td></tr>';
 				});
 				$('#productForm')[0].reset();
-				$(tableStart+result+tableEnd).appendTo('#resultDiv');
+				$(tableStart+result+tableEnd).appendTo('#resultDiv'); */
 			},
 		});
 	});
+	
+	$("#showProductsBtn").click(function(){
+		$("#loading").show();
+		var serializeData = $("#productForm").serialize();
+		console.log(serializeData);
+		$.ajax({
+			type: "GET",
+			url: "showAllProducts.do",
+			contentType: 'application/json',
+			data: serializeData,
+			dataType: 'json',
+			//data: "productName="+prodName+"&productCode="+prodCode,
+			success: function(response){
+				$("#loading").hide();
+				$("#resultDiv").html("");
+				showDataTable(response);
+			},
+			error: function(){
+				$("#loading").hide();
+			}
+		});
+	});
 });
+
+function showDataTable(response){
+	$("#resultDataTableDiv").show();
+	$('#example').dataTable( {
+		paging: true,
+		destroy: true,
+	    searching: true,
+		data: response,
+        columns: [{ data: "productId" }, { data: "productCode" }, { data: "price" }, { data: "manufacturer" }, 
+                  { data: "availableStock" }, { data: "shopId" }, { data: "userName" }, { data: "categoryId" }, 
+                  { data: "createdDate" }, { data: "createdBy" }, { data: "modifiedDate" }, { data: "modifiedBy" }]
+        
+    } );
+}
 
 function updateProducts()
 {
@@ -121,6 +160,51 @@ function showProducts()
 	<form:form name="productForm" id="productForm" modelAttribute="product">
 		<input name="productId" id="productId" type="hidden" value="${product.productId}">
 		<input name="erroMessage" id="erroMessage" type="hidden" value="${product.erroMessage}">
+		<%-- <input name="homePageFormBean" id="homePageFormBean" type="text" value="${product.homePageFormBean}"> --%>
+		
+		<%-- <form:select cssStyle="" name="homePageFormBeanStr" multiple="true" id="homePageFormBeanStr" path="homePageFormBeanStr">
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.userName}">
+					<form:option id="userName" selected="selected" value="${product.homePageFormBean.userName}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.password}">
+					<form:option id="password" selected="selected" value="${product.homePageFormBean.password}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.mobileNumber}">
+					<form:option id="mobileNumber" selected="selected" value="${product.homePageFormBean.mobileNumber}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.emailId}">
+					<form:option id="emailId" selected="selected" value="${product.homePageFormBean.emailId}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.localeLanguage}">
+					<form:option id="localeLanguage" selected="selected" value="${product.homePageFormBean.localeLanguage}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.localeFileName}">
+					<form:option id="localeFileName" selected="selected" value="${product.homePageFormBean.localeFileName}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.searchBox}">
+					<form:option id="searchBox" selected="selected" value="${product.homePageFormBean.searchBox}" />
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not empty product.homePageFormBean.currentLocation}">
+					<form:option id="currentLocation" selected="selected" value="${product.homePageFormBean.currentLocation}" />
+				</c:when>
+			</c:choose>
+		</form:select> --%>
+		
 		<div align="center">
 			<h1>Product Detail</h1>
 			<table border="1">
@@ -162,6 +246,9 @@ function showProducts()
 				<tr>
 					<td>
 						<input type="button" id="addProductBtn" name="addProductBtn" value="SubmitForm"/>
+					</td>
+					<td>
+						<input type="button" id="showProductsBtn" name="showProductsBtn" value="Show All Products"/>
 					</td>
 				</tr>
 				<!-- <tr>
@@ -207,6 +294,42 @@ function showProducts()
 			</c:forEach>
 		</table>
 	</div> --%>
+	<div id="resultDataTableDiv" style="display: none;">
+	<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Code</th>
+                <th>Price</th>
+                <th>Manufacturer</th>
+                <th>Available Stock</th>
+                <th>Shop Id</th>
+                <th>User Name</th>
+                <th>Category Id</th>
+                <th>Created Date</th>
+                <th>Created By</th>
+                <th>Modified Date</th>
+                <th>Modified By</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+            	<th>Product ID</th>
+                <th>Product Code</th>
+                <th>Price</th>
+                <th>Manufacturer</th>
+                <th>Available Stock</th>
+                <th>Shop Id</th>
+                <th>User Name</th>
+                <th>Category Id</th>
+                <th>Created Date</th>
+                <th>Created By</th>
+                <th>Modified Date</th>
+                <th>Modified By</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
 
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.business.dao.ProductMasterDao;
+import com.business.form.HomePageFormBean;
 import com.business.form.ProductFormBean;
 import com.business.pojo.ProductMaster;
 import com.business.util.CommonOperation;
@@ -92,7 +95,7 @@ public class ProductController {
 		return jsonInString;
 	}
 	
-	@RequestMapping(value="/productDescription")
+	/*@RequestMapping(value="/productDescription")
 	public ModelAndView productDescriptionView(@ModelAttribute("product") ProductFormBean productForm) {
 		ModelAndView model = new ModelAndView("addProductsView");
 		Map<Long, String> categoryMap = productMasterDao.getCategoryNamesForms(productForm);
@@ -102,6 +105,25 @@ public class ProductController {
 		model.addObject("categoryId", categoryMap);
 		//model.addObject("categoryName", productForm);
 		model.addObject("categoryMaster", productForm);
+		return model;
+	}*/
+	
+	@RequestMapping(value="/productDescription")
+	public ModelAndView productDescriptionView(@ModelAttribute("homePageDetails") HomePageFormBean homePageForm, HttpSession session) {
+		ProductFormBean productForm = new ProductFormBean();
+		ModelAndView model = new ModelAndView("addProductsView");
+		Map<String, String> homePageFormMap =  (Map<String, String>) session.getAttribute("homePageDetails");
+		Map<Long, String> categoryMap = productMasterDao.getCategoryNamesForms(productForm);
+		List<ProductFormBean> categoryList = new ArrayList(categoryMap.values());
+		
+		productForm.setCategoryMaster(categoryMap);
+		
+		model.addObject("categoryMap", productForm);
+		model.addObject("categoryId", categoryMap);
+		//model.addObject("categoryName", productForm);
+		model.addObject("categoryMaster", productForm);
+		model.addObject("product", productForm);
+		
 		return model;
 	}
 	
@@ -122,13 +144,30 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/showAllProducts")
-	public ModelAndView showProducts(@ModelAttribute("product") ProductMaster product) {
+	public @ResponseBody String showProducts(@ModelAttribute("product") ProductFormBean productFormBean, BindingResult result, HttpSession session) {
 		ModelAndView model = new ModelAndView("addProductsView");
+		ProductMaster product = new ProductMaster();
+		Map<String, String> homePageFormMap =  (Map<String, String>) session.getAttribute("homePageDetails");
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = null;
 		product=new ProductMaster();
-		model.addObject("product", product);
-		List<ProductMaster> productList = productMasterDao.getProductList();
-		model.addObject("productList", productList);
-		return model;
+		
+		try {
+			model.addObject("product", product);
+			List<ProductMaster> productList = productMasterDao.getProductList();
+			model.addObject("productList", productList);
+			jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			productFormBean.setErroMessage("Failure: Record is not Inserted");
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return jsonInString;
 	}
 	
 	@RequestMapping(value="/editProducts")

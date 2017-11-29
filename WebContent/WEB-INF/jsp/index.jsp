@@ -1,31 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@include file="/WEB-INF/jsp/common/includeDirectives.jsp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Page2</title>
-<%@include file="/WEB-INF/jsp/common/scripts.jsp" %>
+<%@include file="/WEB-INF/jsp/common/scripts.jsp"%>
 <script src="js/util.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$(window).load(function() { 
-        $("#spinner").fadeOut("slow"); 
-    });
+	$(document).ready(function() {
 
-	$("#areaSearch").click(function(){
-		if(validateEmail('abc.com')){
-			alert("Hi");
-		} else{
-		alert("Flase"); }	
+		$(window).load(function() {
+			$("#spinner").fadeOut("slow");
+		});
+
+		$("#areaSearch").click(function() {
+			if (validateEmail('abc.com')) {
+				alert("Hi");
+			} else {
+				alert("Flase");
+			}
+		});
 	});
-});
 </script>
 <style type="text/css">
-
-#loading
-{
+#loading {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -39,14 +36,26 @@ $(document).ready(function(){
 }
 </style>
 </head>
-<%@include file="/WEB-INF/jsp/common/header.jsp" %>
 <body>
-	<div id="loading">
-	</div>
-	<form action="">
-		<h1><a href="productDescription.do">Products</a></h1>
-		<br/>
-		<h2><a href="shopDescription.do">Shop Registration</a></h2>
-	</form>
+	<div id="loading"></div>
+	<form:form name="homePageForm" id="homePageForm"
+		action="homePageFormDetails.do" modelAttribute="homePageDetails">
+		<%@include file="/WEB-INF/jsp/common/header.jsp"%>
+		<fmt:setLocale value="en" />
+		<h3>
+			<fmt:message key="homePage.title" bundle="${selectLanguage}"></fmt:message>
+		</h3>
+		<h1>
+			<a href="#" onclick="submitForm_Action('homePageForm', 'productDescription.do')"> <fmt:message
+					key="homePage.product" bundle="${selectLanguage}"></fmt:message>
+			</a>
+		</h1>
+		<br />
+		<h2>
+			<a href="shopDescription.do"> <fmt:message key="homePage.shop"
+					bundle="${selectLanguage}"></fmt:message>
+			</a>
+		</h2>
+	</form:form>
 </body>
 </html>
