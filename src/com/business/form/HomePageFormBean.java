@@ -2,25 +2,56 @@ package com.business.form;
 
 public class HomePageFormBean {
 	
+	private String personName;
+	private String shopRegistrationNumber;
 	private String userName;
-	private Character password;
+	private String customerPassword;
+	private String shopOwnerPassword;
+	private String password;
 	private String mobileNumber;
 	private String emailId;
 	private String localeLanguage;
 	private String localeFileName;
-	private String searchBox;
+	private String loginAs;
 	private String currentLocation;
+	private String notification;
+	private String searchProducthBar;
+	private String LoginButton;
 	
+	public String getPersonName() {
+		return personName;
+	}
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	public String getShopRegistrationNumber() {
+		return shopRegistrationNumber;
+	}
+	public void setShopRegistrationNumber(String shopRegistrationNumber) {
+		this.shopRegistrationNumber = shopRegistrationNumber;
+	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Character getPassword() {
+	public String getCustomerPassword() {
+		return customerPassword;
+	}
+	public void setCustomerPassword(String customerPassword) {
+		this.customerPassword = customerPassword;
+	}
+	public String getShopOwnerPassword() {
+		return shopOwnerPassword;
+	}
+	public void setShopOwnerPassword(String shopOwnerPassword) {
+		this.shopOwnerPassword = shopOwnerPassword;
+	}
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(Character password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getMobileNumber() {
@@ -47,16 +78,34 @@ public class HomePageFormBean {
 	public void setLocaleFileName(String localeFileName) {
 		this.localeFileName = localeFileName;
 	}
-	public String getSearchBox() {
-		return searchBox;
+	public String getLoginAs() {
+		return loginAs;
 	}
-	public void setSearchBox(String searchBox) {
-		this.searchBox = searchBox;
+	public void setLoginAs(String loginAs) {
+		this.loginAs = loginAs;
 	}
 	public String getCurrentLocation() {
 		return currentLocation;
 	}
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
+	}
+	public String getNotification() {
+		return notification;
+	}
+	public void setNotification(String notification) {
+		this.notification = notification;
+	}
+	public String getSearchProducthBar() {
+		return searchProducthBar;
+	}
+	public void setSearchProducthBar(String searchProducthBar) {
+		this.searchProducthBar = searchProducthBar;
+	}
+	public String getLoginButton() {
+		return LoginButton;
+	}
+	public void setLoginButton(String loginButton) {
+		LoginButton = loginButton;
 	}
 }

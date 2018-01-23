@@ -7,26 +7,13 @@
 				var="selectLanguage"></fmt:setBundle>
 		</c:when>
 		<c:otherwise>
-			<fmt:setBundle basename="com.properties.ApplicationMessages"
+			<fmt:setBundle basename="com.properties.ApplicationMessages_en_IN"
 				var="selectLanguage"></fmt:setBundle>
 		</c:otherwise>
 	</c:choose>
 	
 	<table>
 		<tr>
-			<td>Search:<input type="text" name="searchBox" id="searchBox"
-				placeholder="Search Area">
-			</td>
-			<td>User Name:<input type="text" name="userName" id="userName"
-				placeholder="Enter User Name">
-			</td>
-			<td>Password:<input type="text" name="password" id="password"
-				placeholder="password">
-			</td>
-			<td>Location:<input type="text" name="currentLocation"
-				id="currentLocation" placeholder="Your Location">
-			</td>
-
 			<td><select id="localeLanguage" name="localeLanguage"
 				onchange="submitForm('homePageForm')">
 					<option id="SEL">SELECT</option>
