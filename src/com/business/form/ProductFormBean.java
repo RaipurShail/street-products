@@ -21,6 +21,7 @@ public class ProductFormBean {
 	private String modifiedDate;
 	private String modifiedBy;
 	private String erroMessage;
+	private String action;
 	private Map<Long, String> categoryMaster = new HashMap();
 	
 	public String getProductId() {
@@ -112,6 +113,12 @@ public class ProductFormBean {
 	}
 	public void setErroMessage(String erroMessage) {
 		this.erroMessage = erroMessage;
+	}
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String action) {
+		this.action = action;
 	}
 	public Map<Long, String> getCategoryMaster() {
 		return categoryMaster;

@@ -9,24 +9,29 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.business.controller, com.business.dao" />
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven />
 
 	<bean id="productMasterDao" class="com.business.dao.ProductMasterDaoImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
-	
+
 	<bean id="shopMasterDao" class="com.business.dao.ShopMasterDaoImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
 	</bean>
 
-	<!-- <bean id="categoryMasterDao" class="com.business.dao.CategoryMasterDaoImpl">
+	<bean id="userLoginRegistrationDao" class="com.business.dao.UserLoginRegistrationDaoImpl">
 		<constructor-arg>
 			<ref bean="sessionFactory" />
 		</constructor-arg>
-	</bean> -->
+	</bean>
+
+	<!-- <bean id="categoryMasterDao" class="com.business.dao.CategoryMasterDaoImpl"> 
+		<constructor-arg> <ref bean="sessionFactory" /> </constructor-arg> </bean> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

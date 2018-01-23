@@ -34,6 +34,8 @@
 		<mapping class="com.business.pojo.ProductMaster" />
 		<mapping class="com.business.pojo.CategoryMaster" />
 		<mapping class="com.business.pojo.ShopMaster" />
+		<mapping class="com.business.pojo.UserLoginMaster" />
+		<mapping class="com.business.pojo.UserRegistrationMaster" />
 		
 	</session-factory>
 
