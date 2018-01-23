@@ -13,4 +13,5 @@ public interface ProductMasterDao {
 	public void deleteProduct(Long productId);
 	public void updateProducts(ProductMaster product);
 	Map<Long, String> getCategoryNamesForms(ProductFormBean product);
+	public List<ProductMaster> getSearchResult(String searchValue);
 }

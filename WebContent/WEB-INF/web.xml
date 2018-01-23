@@ -5,10 +5,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<welcome-file-list>
-		<!-- <welcome-file>/WEB-INF/jsp/addProductsView.jsp</welcome-file> -->
-		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
-	</welcome-file-list>
+	<!-- <welcome-file-list> <welcome-file>/WEB-INF/jsp/index.jsp</welcome-file> 
+		</welcome-file-list> -->
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -28,6 +26,11 @@
 	<servlet-mapping>
 		<servlet-name>inventory</servlet-name>
 		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>inventory</servlet-name>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 </web-app>
