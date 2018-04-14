@@ -31,7 +31,7 @@ public class ShopRegistrationController {
 		log.info("ENTER - Method shopDescriptionView");
 		ModelAndView model = new ModelAndView("shopRegistration");
 		Map<Long, String> categoryMap = null;// shopMasterDao.getCategoryNamesForms(productForm);
-		//List<ProductFormBean> categoryList = new ArrayList(categoryMap.values());
+		//List<ProductFormBean> categoryList  = new ArrayList(categoryMap.values());
 		model.addObject("shop", shopForm);
 		log.info("EXIT - Method shopDescriptionView");
 		return model;
